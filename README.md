@@ -8,11 +8,11 @@ On Windows, the [Python Installer] will install Python, Tkinter, and Tk/Tcl. Usi
 On Mac, the Installer will only install Python and Tkinter.  Tk must installed seperately. The easy way is to follow [This Link] and install the Python and Tk associated with your version of Mac OS X. Using the py2app Python extension, you can create a stand-alone Mac OS X app from the Python script. (But you will need to do it on a Mac with Python and Tk.)
 
 ### Linux
-Under Debian based systems, type:
-- sudo apt-get install python tkinter tk
+Under Debian based systems, run in shell:
+- sudo apt-get install python python-tk tk
 
-Under Red Hat based systems, type:
-- yum install python tkinter tk
+Under Red Hat based systems, run in shell:
+- sudo yum install python tkinter tk
 
 ## Files
 This contains the following files:
