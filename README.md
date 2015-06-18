@@ -21,7 +21,7 @@ This contains the following files:
 ## Usage
 **notes.py**
 - python notes.py  
-The main app.  When run, will have a single card in a single flow.  You can type whatever you like, then press Enter or Return to create a new card below that one.  Press the Right Arrow to create a new flow to the right of your current flow.
+The main app.  When run, will have a single card in a single flow.  You can type whatever you like, then press Enter (Return) to create a new card below that one.  Press the Right Arrow to create a new flow to the right of your current flow.
 
 <!-- Links -->
 [Python Installer]:https://www.python.org/downloads/windows/
