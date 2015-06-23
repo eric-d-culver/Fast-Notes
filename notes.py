@@ -31,14 +31,20 @@ class App:
 		newCard.bind('<Key>', self.update_card_size)
 		newCard.bind('<Return>', lambda event, flow=flow: self.moveCard(flow, event))
 		newCard.bind("<Right>", lambda event, flow=flow: self.moveFlow(flow, event))
+		newCard.bind("<Left>", lambda event, flow=flow: self.moveFlow(flow, event))
 		flow['cards'].append(newCard)
 		return newCard
 
-	def moveFlow(self, flow, event): # only moves right for now, add left
+	def moveFlow(self, flow, event):
+		move = 0
+		if event.keysym == 'Right':
+			move = 1
+		elif event.keysym == 'Left':
+			move = -1
 		for index, f in enumerate(self.flows):
 			if f == flow:
-				if index+1 < len(self.flows):
-					self.addCard(self.flows[index+1]).focus()
+				if index+move in range(len(self.flows)):
+					self.addCard(self.flows[index+move]).focus()
 				else:
 					self.addFlow()
 		return "break"
