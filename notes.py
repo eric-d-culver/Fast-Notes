@@ -30,6 +30,8 @@ class App:
 		newCard.pack(side = TOP)
 		newCard.bind('<Key>', self.update_card_size)
 		newCard.bind('<Return>', lambda event, flow=flow: self.moveCard(flow, event))
+		newCard.bind('<Up>', lambda event, flow=flow: self.moveCard(flow, event))
+		newCard.bind('<Down>', lambda event, flow=flow: self.moveCard(flow, event))
 		newCard.bind("<Right>", lambda event, flow=flow: self.moveFlow(flow, event))
 		newCard.bind("<Left>", lambda event, flow=flow: self.moveFlow(flow, event))
 		flow['cards'].append(newCard)
@@ -49,11 +51,16 @@ class App:
 					self.addFlow()
 		return "break"
 
-	def moveCard(self, flow, event): # only moves down when Enter (Return) is pressed, perhaps add Up and Down arrows to move?
+	def moveCard(self, flow, event):
+		move = 0
+		if event.keysym == 'Up':
+			move = -1
+		elif event.keysym == 'Down' or event.keysym == 'Return':
+			move = 1
 		for index, card in enumerate(flow['cards']):
 			if card == event.widget:
-				if index+1 < len(flow['cards']):
-					flow['cards'][index+1].focus()
+				if index+move in range(len(flow['cards'])):
+					flow['cards'][index+move].focus()
 				else:
 					self.addCard(flow).focus()
 		return "break"
