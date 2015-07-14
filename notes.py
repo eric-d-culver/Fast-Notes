@@ -1,6 +1,6 @@
 from Tkinter import *
 
-class App:
+class Group:
 	def __init__(self, master):
 		self.outerFrame = Frame(master)
 		self.outerFrame.pack(side = TOP)
