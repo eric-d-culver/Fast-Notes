@@ -78,5 +78,5 @@ class Group:
 			curCard.config(height = text_height)
 
 root = Tk()
-app = App(root)
+group = Group(root)
 root.mainloop()
