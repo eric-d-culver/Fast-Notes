@@ -28,7 +28,9 @@ class Group:
 		newCard = Text(
 			flow['frame'], 
 			height = self.userHeight, 
-			width = self.userWidth
+			width = self.userWidth,
+			borderwidth = 1,
+			relief = RAISED
 		)
 		newCard.pack(side = TOP)
 		newCard.bind('<Key>', self.update_card_size)
