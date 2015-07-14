@@ -18,7 +18,7 @@ class Group:
 		newFlow['title'] = Label(newFlow['frame'], text = "Flow")
 		newFlow['title'].pack(side = TOP)
 		newFlow['cards'] = [] # A list of all the cards in the flow
-		while len(newFlow['cards']) < numCards:
+		while len(newFlow['cards']) < self.numCards:
 			self.addCard(newFlow)
 		newFlow['cards'][0].focus()
 		self.flows.append(newFlow)
