@@ -1,4 +1,5 @@
 from Tkinter import *
+from tabs import *
 
 class Group:
 	def __init__(self, master):
@@ -79,6 +80,25 @@ class Group:
 		if curCard.cget("height") < text_height:
 			curCard.config(height = text_height)
 
+class App:
+	def __init__(self, master):
+		self.master = master
+		self.outerFrame = Frame(master)
+		self.outerFrame.pack(side = TOP)
+		self.tabBar = TabBar(master)
+		self.tabs = []
+		self.addTab("Tab")
+		self.tabBar.show()
+
+	def addTab(self, name):
+		newTab = Tab(self.master, name)
+		newTabStuff = {}
+		newTabStuff['tab'] = newTab
+		newTabStuff['group'] = Group(newTab)
+		self.tabBar.add(newTab)
+		self.tabs.append(newTabStuff)
+		return newTabStuff
+
 root = Tk()
-group = Group(root)
+app = App(root)
 root.mainloop()
