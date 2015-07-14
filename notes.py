@@ -5,7 +5,7 @@ class Group:
 		self.outerFrame = Frame(master)
 		self.outerFrame.pack(side = TOP)
 		self.flows = [] # A list of all the flows
-		self.numCards = 0
+		self.numCards = 1
 		self.userHeight = 10 # called userHeight to remind me to make it user configureable
 		self.userWidth = 30 # called userWidth to remind me to make it user configureable
 		flow = self.addFlow()
