@@ -17,12 +17,18 @@ Under Red Hat based systems, run in shell:
 ## Files
 This contains the following files:
 - notes.py
+- tabs.py
 
 ## Usage
 **notes.py**
 - python notes.py  
 The main app.  When run, will have a single card in a single flow.  You can type whatever you like, then press Enter (Return) to create a new card below that one.  Press the Right Arrow to create a new flow to the right of your current flow.
 
+**tabs.py**  
+A Tkinter Tab [recipe] by [Sunjay Varma].
+
 <!-- Links -->
 [Python Installer]:https://www.python.org/downloads/windows/
 [This Link]:https://www.python.org/download/mac/tcltk/
+[recipe]:http://code.activestate.com/recipes/577261-python-tkinter-tabs/
+[Sunjay Varma]:http://sunjay.ca/
