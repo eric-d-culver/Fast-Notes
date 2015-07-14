@@ -2,7 +2,9 @@ from Tkinter import *
 from tabs import *
 
 class Group:
-	def __init__(self, master):
+	def __init__(self, master, caller = None):
+		self.master = master
+		self.caller = caller
 		self.outerFrame = Frame(master)
 		self.outerFrame.pack(side = TOP)
 		self.flows = [] # A list of all the flows
@@ -84,8 +86,6 @@ class App:
 	def __init__(self, master):
 		self.master = master
 		# self.options = loadConfigFile("config.txt")
-		self.outerFrame = Frame(master)
-		self.outerFrame.pack(side = TOP)
 		self.tabBar = TabBar(master)
 		self.tabs = []
 		self.addTab("Tab")
@@ -95,7 +95,7 @@ class App:
 		newTab = Tab(self.master, name)
 		newTabStuff = {}
 		newTabStuff['tab'] = newTab
-		newTabStuff['group'] = Group(newTab)
+		newTabStuff['group'] = Group(newTab, caller = self)
 		self.tabBar.add(newTab)
 		self.tabs.append(newTabStuff)
 		return newTabStuff
