@@ -83,6 +83,7 @@ class Group:
 class App:
 	def __init__(self, master):
 		self.master = master
+		# self.options = loadConfigFile("config.txt")
 		self.outerFrame = Frame(master)
 		self.outerFrame.pack(side = TOP)
 		self.tabBar = TabBar(master)
