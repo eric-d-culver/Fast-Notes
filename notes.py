@@ -5,8 +5,6 @@ class Group:
 	def __init__(self, master, caller = None):
 		self.master = master
 		self.caller = caller
-		self.outerFrame = Frame(master)
-		self.outerFrame.pack(side = TOP)
 		self.flows = [] # A list of all the flows
 		self.numCards = 1
 		self.userHeight = 10 # called userHeight to remind me to make it user configureable
@@ -16,7 +14,7 @@ class Group:
 
 	def addFlow(self):
 		newFlow = {}
-		newFlow['frame'] = Frame(self.outerFrame)
+		newFlow['frame'] = Frame(self.master)
 		newFlow['frame'].pack(side = LEFT)
 		newFlow['title'] = Label(newFlow['frame'], text = "Flow")
 		newFlow['title'].pack(side = TOP)
