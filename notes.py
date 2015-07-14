@@ -5,6 +5,7 @@ class Group:
 		self.outerFrame = Frame(master)
 		self.outerFrame.pack(side = TOP)
 		self.flows = [] # A list of all the flows
+		self.numCards = 0
 		self.userHeight = 10 # called userHeight to remind me to make it user configureable
 		self.userWidth = 30 # called userWidth to remind me to make it user configureable
 		flow = self.addFlow()
@@ -17,7 +18,9 @@ class Group:
 		newFlow['title'] = Label(newFlow['frame'], text = "Flow")
 		newFlow['title'].pack(side = TOP)
 		newFlow['cards'] = [] # A list of all the cards in the flow
-		self.addCard(newFlow).focus()
+		while len(newFlow['cards']) < numCards:
+			self.addCard(newFlow)
+		newFlow['cards'][0].focus()
 		self.flows.append(newFlow)
 		return newFlow
 
@@ -35,6 +38,7 @@ class Group:
 		newCard.bind("<Right>", lambda event, flow=flow: self.moveFlow(flow, event))
 		newCard.bind("<Left>", lambda event, flow=flow: self.moveFlow(flow, event))
 		flow['cards'].append(newCard)
+		if len(flow['cards']) > self.numCards: self.numCards = len(flow['cards'])
 		return newCard
 
 	def moveFlow(self, flow, event):
