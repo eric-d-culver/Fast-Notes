@@ -77,6 +77,9 @@ class TabBar(Frame):
 		self.current_tab = name									# set the current tab to itself
 		
 		self.buttons[name].config(relief=SELECTED)					# set it to the selected style
+
+	def currentTab(self):
+		return self.current_tab
 			
 if __name__ == '__main__':
 	def write(x): print x
