@@ -40,6 +40,8 @@ class Group:
 		newCard.bind('<Down>', lambda event, flow=flow: self.moveCard(flow, event))
 		newCard.bind("<Right>", lambda event, flow=flow: self.moveFlow(flow, event))
 		newCard.bind("<Left>", lambda event, flow=flow: self.moveFlow(flow, event))
+		newCard.bind("[", lambda event: self.caller.moveTab(event))
+		newCard.bind("]", lambda event: self.caller.moveTab(event))
 		flow['cards'].append(newCard)
 		if len(flow['cards']) > self.numCards: self.numCards = len(flow['cards'])
 		return newCard
@@ -93,10 +95,25 @@ class App:
 		newTab = Tab(self.master, name)
 		newTabStuff = {}
 		newTabStuff['tab'] = newTab
+		newTabStuff['name'] = name
 		newTabStuff['group'] = Group(newTab, caller = self)
 		self.tabBar.add(newTab)
 		self.tabs.append(newTabStuff)
 		return newTabStuff
+
+	def moveTab(self, event):
+		move = 0
+		if event.keysym == "[":
+			move = -1
+		elif event.keysym == "]":
+			move = 1
+		for index, tab in enumerate(self.tabs):
+			if tab['name'] == self.tabBar.currentTab():
+				if index+move in range(len(self.tabs)):
+					self.tabBar.switch_tab(self.tabs[index+move]['name'])
+				else:
+					self.tabBar.switch_tab(self.addTab("Tab")['name'])
+		return "break"
 
 root = Tk()
 app = App(root)
