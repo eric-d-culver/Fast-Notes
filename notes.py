@@ -44,6 +44,9 @@ class Group:
 		newCard.bind("]", lambda event: self.caller.moveTab(event))
 		flow['cards'].append(newCard)
 		if len(flow['cards']) > self.numCards: self.numCards = len(flow['cards'])
+		for flow in self.flows:
+			while len(flow['cards']) < self.numCards:
+				self.addCard(flow)
 		return newCard
 
 	def moveFlow(self, flow, event):
