@@ -9,6 +9,8 @@ class Group:
 		self.numCards = 1
 		self.userHeight = 10 # called userHeight to remind me to make it user configureable
 		self.userWidth = 30 # called userWidth to remind me to make it user configureable
+		self.currentFlow = None
+		self.currentCard = None
 		flow = self.addFlow()
 		return
 
@@ -21,7 +23,8 @@ class Group:
 		newFlow['cards'] = [] # A list of all the cards in the flow
 		while len(newFlow['cards']) < self.numCards:
 			self.addCard(newFlow)
-		newFlow['cards'][0].focus()
+		newFlow['cards'][self.currentCard].focus()
+		self.currentFlow = len(self.flows)
 		self.flows.append(newFlow)
 		return newFlow
 
@@ -42,8 +45,10 @@ class Group:
 		newCard.bind("<Left>", lambda event, flow=flow: self.moveFlow(flow, event))
 		newCard.bind("[", lambda event: self.caller.moveTab(event))
 		newCard.bind("]", lambda event: self.caller.moveTab(event))
+		self.currentCard = len(flow['cards'])
 		flow['cards'].append(newCard)
-		if len(flow['cards']) > self.numCards: self.numCards = len(flow['cards'])
+		if len(flow['cards']) > self.numCards: 
+			self.numCards = len(flow['cards'])
 		for flow in self.flows:
 			while len(flow['cards']) < self.numCards:
 				self.addCard(flow)
@@ -55,12 +60,11 @@ class Group:
 			move = 1
 		elif event.keysym == 'Left':
 			move = -1
-		for index, f in enumerate(self.flows):
-			if f == flow:
-				if index+move in range(len(self.flows)):
-					self.addCard(self.flows[index+move]).focus()
-				else:
-					self.addFlow()
+		index = self.currentFlow
+		if index+move in range(len(self.flows)):
+			self.flows[index+move]['cards'][self.currentCard].focus()
+		else:
+			self.addFlow()
 		return "break"
 
 	def moveCard(self, flow, event):
@@ -69,12 +73,12 @@ class Group:
 			move = -1
 		elif event.keysym == 'Down' or event.keysym == 'Return':
 			move = 1
-		for index, card in enumerate(flow['cards']):
-			if card == event.widget:
-				if index+move in range(len(flow['cards'])):
-					flow['cards'][index+move].focus()
-				else:
-					self.addCard(flow).focus()
+		index = self.currentCard
+		if index+move in range(len(flow['cards'])):
+			flow['cards'][index+move].focus()
+			self.currentCard = index+move
+		else:
+			self.addCard(flow).focus()
 		return "break"
 
 	def update_card_size(self, event):
