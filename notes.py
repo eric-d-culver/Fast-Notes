@@ -10,7 +10,7 @@ class Group:
 		self.userHeight = 10 # called userHeight to remind me to make it user configureable
 		self.userWidth = 30 # called userWidth to remind me to make it user configureable
 		self.currentFlow = None
-		self.currentCard = None
+		self.currentCard = self.numCards-1
 		flow = self.addFlow()
 		return
 
@@ -21,8 +21,10 @@ class Group:
 		newFlow['title'] = Label(newFlow['frame'], text = "Flow")
 		newFlow['title'].pack(side = TOP)
 		newFlow['cards'] = [] # A list of all the cards in the flow
+		curCard = self.currentCard
 		while len(newFlow['cards']) < self.numCards:
 			self.addCard(newFlow)
+		self.currentCard = curCard
 		newFlow['cards'][self.currentCard].focus()
 		self.currentFlow = len(self.flows)
 		self.flows.append(newFlow)
@@ -63,6 +65,7 @@ class Group:
 		index = self.currentFlow
 		if index+move in range(len(self.flows)):
 			self.flows[index+move]['cards'][self.currentCard].focus()
+			self.currentFlow = index+move
 		else:
 			self.addFlow()
 		return "break"
