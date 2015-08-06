@@ -35,48 +35,47 @@ class Tab(Frame):
 
 # the bulk of the logic is in the actual tab bar
 class TabBar(Frame):
-	def __init__(self, master=None, init_name=None):
+	def __init__(self, master=None):
 		Frame.__init__(self, master)
-		self.tabs = {}
-		self.buttons = {}
+		self.tabs = []
+		self.buttons = []
 		self.current_tab = None
-		self.init_name = init_name
 	
 	def show(self):
 		self.pack(side=TOP, expand=YES, fill=X)
-		self.switch_tab(self.init_name or self.tabs.keys()[-1])# switch the tab to the first tab
+		self.switch_tab(-1)# switch the tab to the first tab
 	
 	def add(self, tab):
 		tab.pack_forget()									# hide the tab on init
 		
-		self.tabs[tab.tab_name] = tab						# add it to the list of tabs
+		self.tabs.append(tab)						# add it to the list of tabs
 		b = Button(self, text=tab.tab_name, relief=BASE,	# basic button stuff
-			command=(lambda name=tab.tab_name: self.switch_tab(name)))	# set the command to switch tabs
+			command=(lambda num=len(self.buttons): self.switch_tab(num)))	# set the command to switch tabs
 		b.pack(side=LEFT)												# pack the buttont to the left mose of self
-		self.buttons[tab.tab_name] = b											# add it to the list of buttons
+		self.buttons.append(b)											# add it to the list of buttons
 	
-	def delete(self, tabname):
+	def delete(self, tabnum):
 		
-		if tabname == self.current_tab:
+		if tabnum == self.current_tab:
 			self.current_tab = None
-			self.tabs[tabname].pack_forget()
-			del self.tabs[tabname]
-			self.switch_tab(self.tabs.keys()[0])
+			self.tabs[tabnum].pack_forget()
+			del self.tabs[tabnum]
+			self.switch_tab(self.tabs[0])
 		
-		else: del self.tabs[tabname]
+		else: del self.tabs[tabnum]
 		
-		self.buttons[tabname].pack_forget()
-		del self.buttons[tabname] 
+		self.buttons[tabnum].pack_forget()
+		del self.buttons[tabnum] 
 		
 	
-	def switch_tab(self, name):
+	def switch_tab(self, num):
 		if self.current_tab:
 			self.buttons[self.current_tab].config(relief=BASE)
 			self.tabs[self.current_tab].pack_forget()			# hide the current tab
-		self.tabs[name].pack(side=BOTTOM)							# add the new tab to the display
-		self.current_tab = name									# set the current tab to itself
+		self.tabs[num].pack(side=BOTTOM)							# add the new tab to the display
+		self.current_tab = num									# set the current tab to itself
 		
-		self.buttons[name].config(relief=SELECTED)					# set it to the selected style
+		self.buttons[self.current_tab].config(relief=SELECTED)					# set it to the selected style
 
 	def currentTab(self):
 		return self.current_tab

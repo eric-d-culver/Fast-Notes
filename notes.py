@@ -103,17 +103,16 @@ class App:
 
 	def moveTab(self, event):
 		move = 0
-		print event.char
 		if event.char == '[':
 			move = -1
 		elif event.char == ']':
 			move = 1
-		for index, tab in enumerate(self.tabs):
-			if tab['name'] == self.tabBar.currentTab():
-				if index+move in range(len(self.tabs)):
-					self.tabBar.switch_tab(self.tabs[index+move]['name'])
-				else:
-					self.tabBar.switch_tab(self.addTab("Tab")['name'])
+		index = self.tabBar.currentTab()
+		if index+move in range(len(self.tabs)):
+			self.tabBar.switch_tab(index+move)
+		else:
+			self.addTab("Tab")
+			self.tabBar.switch_tab(-1)
 		return "break"
 
 root = Tk()
