@@ -103,9 +103,10 @@ class App:
 
 	def moveTab(self, event):
 		move = 0
-		if event.keysym == "[":
+		print event.char
+		if event.char == '[':
 			move = -1
-		elif event.keysym == "]":
+		elif event.char == ']':
 			move = 1
 		for index, tab in enumerate(self.tabs):
 			if tab['name'] == self.tabBar.currentTab():
